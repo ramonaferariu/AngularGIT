@@ -1,0 +1,8 @@
+<p>orders works!</p>
+
+
+<ul>
+    <li *ngFor="let order of orders">
+           <a [routerLink] ="['/orders', order.id]" >{{order.title}}</a>  
+    </li>
+</ul>
