@@ -5,7 +5,7 @@
         <h2>Users</h2>
 
         <form [formGroup]="searchForm" 
-        ngSubmit="onSearch()">
+        (ngSubmit)="onSearch()">
 
         <input type="text" placeholder="Search user:" 
         formControlName="searchInput"/>
