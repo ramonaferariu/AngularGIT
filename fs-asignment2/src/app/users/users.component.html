@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-md-6">
+        <app-user></app-user>
+    </div>
+    <div class="col-md-6">
+        <h4>Users List</h4>
+
+
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Email</th>
+                </tr>
+                <tr  *ngFor="let user of users">
+                <td>{{user.name}}</td>
+                <td>{{user.age}}</td>
+                <td>{{user.email}}</td>
+                </tr>
+            </tbody>
+        </table>
+         <button class="btn btn-primary" (click)= "clearUsersList()"> Delete users list </button>
+    </div>
+</div>
+
