@@ -14,7 +14,7 @@ export class UsersComponent implements OnInit,OnDestroy {
   config: Config | undefined;
   searchForm : FormGroup;
   searchInput = new FormControl("",[Validators.minLength(3),Validators.required]);
-  searchedUsers = [];
+  searchedUsers:any;
 
   constructor(private searchService:SearchUsersService,private http:HttpClient) { 
     this.searchForm = new FormGroup({
@@ -32,12 +32,10 @@ export class UsersComponent implements OnInit,OnDestroy {
   onSearch(){
     const name = this.searchForm.controls["searchInput"].value;
     console.log("input: " + name);
-    this.showConfig();
+    this.showConfig(name);
    
   }
-
-
-  showConfig() {
+  showConfig(name:string) {
    /* this.searchService.getUsers()
       .subscribe((data: Config) => this.config = {
           heroesUrl: data.heroesUrl,
@@ -47,20 +45,25 @@ export class UsersComponent implements OnInit,OnDestroy {
 
       console.log(this.config);*/
 
-      this.http.get('https://jsonplaceholder.typicode.com/users?name=Leanne%20Graham')
-      .pipe(map(responseData =>{
+      this.http.get('https://jsonplaceholder.typicode.com/users?name=' + name)
+      .pipe(map(res => res
+        
+        
+       /* {
         const users = [];
-        for(const key in responseData){
+       for(const key in responseData){
          // if(responseData.hasOwnProperty(key)) {
              users.push({ ...responseData});
         //}
         }
+        users.push({ ...responseData});
         return users;
-      }))
-
-      .subscribe(users => {
+      }*/
+      
+      ))
+      .subscribe(res => {
         //  console.log(users);
-         this.searchedUsers = users;
+         this.searchedUsers = res;
          console.log( this.searchedUsers);
       });
   }
