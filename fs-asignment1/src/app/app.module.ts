@@ -10,10 +10,10 @@ import { StudentsComponent } from './students/students.component';
     AppComponent,
     StudentsComponent
   ],
+  bootstrap: [ AppComponent ],
   imports: [
     BrowserModule
   ],
-  providers: [],
-  bootstrap: [ ]
+  providers: []
 })
 export class AppModule { }

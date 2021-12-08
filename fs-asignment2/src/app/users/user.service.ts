@@ -21,13 +21,10 @@ export class UserService {
   }
 
   getUsers(){
-
     let usersData =localStorage.getItem("users");
-
     if(usersData){
       this.users = JSON.parse(usersData);
     }
-
     return this.users.slice();
 }
 

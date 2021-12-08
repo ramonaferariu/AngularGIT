@@ -1,7 +1,8 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit, Input,Output } from '@angular/core';
 import { StudentsDataService } from '../students-data.service';
-
+import { Student } from '../student.model';
+import { Observable,Subject } from 'rxjs';
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
@@ -9,27 +10,27 @@ import { StudentsDataService } from '../students-data.service';
 })
 export class StudentsComponent implements OnInit {
 
- //@Input() students:StudentsDataService[] = [];
- @Input() randomArray:StudentsDataService[] = [];
- 
 
+ promoted:Student[] =[];
+ failed:Student[] = [];
+ 
   constructor(private studentsService:StudentsDataService) {}
 
   ngOnInit(): void {
- 
-   }
 
-   getPromoted(){
-     return this.studentsService.promotedStudents();
-   }
+    this.promoted =  this.studentsService.promotedStudents();
+    this.failed = this.studentsService.failedStudents();
 
-   getFailed(){
-    return this.studentsService.failedStudents();
-  }
-  
+    this.studentsService.studentsChanged.subscribe(
+      (promoted:Student[]) => {
+        this.promoted =  this.studentsService.promotedStudents();
+        this.failed =  this.studentsService.failedStudents();
+      }
+    );
+   }
 
   addRandom() {
- //   this.randomArray = this.studentsService.addRandom();
+    this.studentsService.addRandom();
   }
 
   

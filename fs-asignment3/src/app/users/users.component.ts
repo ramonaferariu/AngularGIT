@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Config, SearchUsersService } from './search-users.service';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map,switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -34,8 +35,43 @@ export class UsersComponent implements OnInit,OnDestroy {
     console.log("input: " + name);
     this.showConfig(name);
    
+
+
   }
+
   showConfig(name:string) {
+     this.http.get<{ [key: string]: Observable<any> }>('https://jsonplaceholder.typicode.com/users')
+     .pipe(
+      /* switchMap(responseData => {
+         console.log(responseData);
+         return responseData;
+       }*/
+      
+      
+       map((responseData) => {
+      
+      
+     const usersArray = [];
+       console.log('respondeData '+responseData);
+       for(const key in responseData){
+         if(responseData[key])
+         if(responseData.hasOwnProperty(key)){
+            usersArray.push({...responseData[key],id:key})
+         }
+       }
+       this.searchedUsers = usersArray;}
+       
+     ))
+       .subscribe(res => {
+         // this.searchedUsers = res;
+       //  console.log('searchedUsers: '+ this.searchedUsers);
+       console.log(`users: ${res}`);
+       });
+   }
+
+
+
+  showConfig2(name:string) {
    /* this.searchService.getUsers()
       .subscribe((data: Config) => this.config = {
           heroesUrl: data.heroesUrl,
@@ -45,7 +81,8 @@ export class UsersComponent implements OnInit,OnDestroy {
 
       console.log(this.config);*/
 
-      this.http.get('https://jsonplaceholder.typicode.com/users?name=' + name)
+    //  this.http.get('https://jsonplaceholder.typicode.com/users?name=' + name)
+    this.http.get('https://jsonplaceholder.typicode.com/users')
       .pipe(map(res => res
         
         

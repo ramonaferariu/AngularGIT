@@ -1,14 +1,14 @@
 
 <h3>Promoted students</h3>
 <ul>
-    <li *ngFor="let promoted of getPromoted()"  >
+    <li *ngFor="let promoted of promoted"  >
         {{promoted.fname}} {{promoted.lname}} ({{promoted.grade}}) 
     </li>
 </ul>
 
 <h3>Failed students</h3>
 <ul>
-    <li *ngFor="let failed of getFailed()">
+    <li *ngFor="let failed of failed">
        {{failed.fname}} {{failed.lname}} ({{failed.grade}})
     </li>
 </ul>
@@ -16,10 +16,6 @@
 <hr/>
 
 
-<h3>Random List</h3>
+<h3>Random student</h3>
 <button type="button" (click)="addRandom()"> Add random item </button>
-<ul>
-    <li *ngFor="let item of randomArray">
-      {{item}}
-    </li>
-</ul>
+
