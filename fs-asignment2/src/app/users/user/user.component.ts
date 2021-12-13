@@ -14,7 +14,7 @@ export class UserComponent implements OnInit {
 
   form : FormGroup;
   name = new FormControl("",[Validators.required, Validators.minLength(3),Validators.maxLength(50)] );
-  age = new FormControl("", [Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]);
+  age = new FormControl("", [Validators.required]);
   email = new FormControl("",Validators.email);
 
   constructor(private userService:UserService) {
@@ -30,17 +30,12 @@ export class UserComponent implements OnInit {
   }
 
   onAddUser(){
-   // console.log(this.form);
-    //this.form.reset();
-
     const name = this.form.controls['name'].value;
     const age = this.form.controls['age'].value;
     const email = this.form.controls['email'].value;
 
-   // console.log('input data: '+name + age+ email);
 
     const newUser = new User(name,age,email);
-    //console.log(newUser);
 
     this.userService.addUser(newUser);
     this.form.reset();
